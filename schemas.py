@@ -12,7 +12,7 @@ class PetType(Enum):
 class PetBaseModel(BaseModel):
     name: str = Field(max_length=16)
     age: int = Field(ge=0)
-    type: str
+    type: PetType
 
 
 class PetListModel(PetBaseModel):
