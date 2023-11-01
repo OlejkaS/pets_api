@@ -1,5 +1,5 @@
-from database import Base
 from datetime import datetime
+
 from sqlalchemy import (
     Column,
     DateTime,
@@ -7,7 +7,9 @@ from sqlalchemy import (
     Integer,
     String
 )
-from schemas import PetType
+
+from api.schemas import PetType
+from db.database import Base
 
 
 class Pet(Base):

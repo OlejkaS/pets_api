@@ -1,9 +1,9 @@
-from database import engine, SessionLocal
-from fastapi import FastAPI, Depends
-import models
-from schemas import DeletePetModel, PetBaseModel, PetListWithCount
-
+from db.database import engine, SessionLocal
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
+
+import api.models as models
+from api.schemas import DeletePetModel, PetBaseModel, PetListWithCount
 
 
 app = FastAPI(
