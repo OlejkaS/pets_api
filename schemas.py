@@ -10,16 +10,19 @@ class PetType(Enum):
 
 
 class PetBaseModel(BaseModel):
-    id: int
     name: str = Field(max_length=16)
     age: int = Field(ge=0)
     type: PetType
+
+
+class PetListModel(PetBaseModel):
+    id: int
     created_at: datetime = datetime.now()
 
 
 class PetListWithCount(BaseModel):
     count: int
-    items: List[PetBaseModel]
+    items: List[PetListModel]
 
 
 class DeletePetModel(BaseModel):
