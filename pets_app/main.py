@@ -2,7 +2,13 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
 import api.models as models
-from api.schemas import DeletePetModel, PetBaseModel, PetListWithCount
+from api.schemas import (
+    DeletePetModel,
+    DeleteResponseModel,
+    PetBaseModel,
+    PetList,
+    PetListWithCount,
+)
 from db.database import engine, get_db
 
 
@@ -13,8 +19,8 @@ app = FastAPI(
 models.Base.metadata.create_all(bind=engine)
 
 
-@app.post('/pets')
-def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)):
+@app.post('/pets', response_model=PetList)
+def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
     pet_obj = models.Pet(name=pets.name, age=pets.age, type=pets.type)
     db.add(pet_obj)
     db.commit()
@@ -23,13 +29,19 @@ def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)):
 
 
 @app.get('/pets', response_model=PetListWithCount)
-def list_pets(limit: int = 20, db: Session = Depends(get_db)):
+def list_pets(
+    limit: int = 20,
+    db: Session = Depends(get_db)
+) -> PetListWithCount:
     queryset = db.query(models.Pet).all()[:limit]
     return {'count': len(queryset), 'items': queryset}
 
 
-@app.delete('/pets')
-def delete_pet(ids: DeletePetModel, db: Session = Depends(get_db)):
+@app.delete('/pets', response_model=DeleteResponseModel)
+def delete_pet(
+    ids: DeletePetModel,
+    db: Session = Depends(get_db)
+) -> DeleteResponseModel:
     errors = []
     delete_count = 0
     for id in dict(ids)['ids']:
