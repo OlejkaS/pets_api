@@ -21,6 +21,17 @@ models.Base.metadata.create_all(bind=engine)
 
 @app.post('/pets', response_model=PetList)
 def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
+    """
+    Создаёт нового питомца на основе переданных данных PetBaseModel и сохраняет
+    его в базе данных.
+
+    Args:
+        pets (PetBaseModel): Данные для создания питомца.
+        db (Session): Объект сеанса базы данных.
+
+    Returns:
+        PetList: Данные нового питомца.
+    """
     pet_obj = models.Pet(name=pets.name, age=pets.age, type=pets.type)
     db.add(pet_obj)
     db.commit()
@@ -33,6 +44,17 @@ def list_pets(
     limit: int = 20,
     db: Session = Depends(get_db)
 ) -> PetListWithCount:
+    """
+    Возвращает список питомцев из базы данных в рамках установленного лимита.
+
+    Args:
+        limit (int, optional): Лимит по количеству питомцев, возвращаемых в
+        списке. По умолчанию лимит равен 20.
+        db (Session): Объект сеанса базы данных.
+
+    Returns:
+        PetListWithCount: Список питомцев с их общим количеством.
+    """
     queryset = db.query(models.Pet).all()[:limit]
     return {'count': len(queryset), 'items': queryset}
 
@@ -42,6 +64,10 @@ def delete_pet(
     ids: DeletePetModel,
     db: Session = Depends(get_db)
 ) -> DeleteResponseModel:
+    """
+    Удаляет объекты с указанными id из базы данных, а также возвращает ошибку,
+    если объекты с такими id не были найдены.
+    """
     errors = []
     delete_count = 0
     for id in dict(ids)['ids']:

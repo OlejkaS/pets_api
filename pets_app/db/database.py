@@ -13,6 +13,15 @@ Base = declarative_base()
 
 
 def get_db() -> SessionLocal:
+    """
+    Предоставляет экземпляр сессии базы данных.
+
+    Args:
+        None
+
+    Returns:
+        SessionLocal: экземпляр сессии базы данных. 
+    """
     try:
         db = SessionLocal()
         yield db
