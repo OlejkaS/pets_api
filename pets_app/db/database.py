@@ -20,7 +20,7 @@ def get_db() -> SessionLocal:
         None
 
     Returns:
-        SessionLocal: экземпляр сессии базы данных. 
+        SessionLocal: экземпляр сессии базы данных.
     """
     try:
         db = SessionLocal()

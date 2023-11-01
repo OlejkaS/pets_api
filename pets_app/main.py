@@ -30,7 +30,7 @@ def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
         db (Session): Объект сеанса базы данных.
 
     Returns:
-        PetList: Данные нового питомца.
+        PetList: Словарь с данными нового питомца.
     """
     pet_obj = models.Pet(name=pets.name, age=pets.age, type=pets.type)
     db.add(pet_obj)
@@ -65,8 +65,16 @@ def delete_pet(
     db: Session = Depends(get_db)
 ) -> DeleteResponseModel:
     """
-    Удаляет объекты с указанными id из базы данных, а также возвращает ошибку,
+    Удаляет объекты с указанными id из базы данных, а также возвращает ошибки,
     если объекты с такими id не были найдены.
+
+    Args:
+        ids (DeletePetModel): ID питомцев для удаления.
+        db (Session): Объект сеанса базы данных.
+
+    Returns:
+        DeleteResponseModel: Словарь с количеством удалённых питомцев, а также
+        списком ошибок, содержащих ID, которые не были найдены.
     """
     errors = []
     delete_count = 0
