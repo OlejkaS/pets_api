@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 import api.models as models
 from api.schemas import DeletePetModel, PetBaseModel, PetListWithCount
-from db.database import engine, SessionLocal
+from db.database import engine, get_db
 
 
 app = FastAPI(
@@ -11,14 +11,6 @@ app = FastAPI(
 )
 
 models.Base.metadata.create_all(bind=engine)
-
-
-def get_db():
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
 
 
 @app.post('/pets')
