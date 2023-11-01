@@ -34,3 +34,13 @@ class PetListWithCount(BaseModel):
 
 class DeletePetModel(BaseModel):
     ids: List[int] = [1, 2, 3]
+
+
+class ErrorsModel(BaseModel):
+    id: int
+    error: str
+
+
+class DeleteResponseModel(BaseModel):
+    deleted: int
+    errors: List[ErrorsModel]
