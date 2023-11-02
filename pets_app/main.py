@@ -22,7 +22,7 @@ models.Base.metadata.create_all(bind=engine)
 @app.post('/pets', response_model=PetList)
 def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
     """
-    Создаёт нового питомца на основе переданных данных PetBaseModel и сохраняет
+    Создаёт нового питомца на основе переданных данных и сохраняет
     его в базе данных.
 
     Args:
