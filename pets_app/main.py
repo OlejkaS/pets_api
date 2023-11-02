@@ -79,13 +79,13 @@ def delete_pet(
     errors = []
     delete_count = 0
     for id in dict(ids)['ids']:
-        found = False
+        error_found = False
         queryset = db.query(models.Pet).filter(models.Pet.id == id).first()
         if queryset:
             db.delete(queryset)
             delete_count += 1
-            found = True
-        if not found:
+            error_found = True
+        if not error_found:
             errors.append(
                 {
                     'id': id,
