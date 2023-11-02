@@ -13,13 +13,13 @@ from db.database import engine, get_db
 
 
 app = FastAPI(
-    title='FastAPI pets'
+    title='FastAPI pets',
 )
 
 models.Base.metadata.create_all(bind=engine)
 
 
-@app.post('/pets', response_model=PetList)
+@app.post('/pets', tags=['Pets'], response_model=PetList)
 def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
     """
     Создаёт нового питомца на основе переданных данных и сохраняет
@@ -39,7 +39,7 @@ def add_pet(pets: PetBaseModel, db: Session = Depends(get_db)) -> PetList:
     return pet_obj
 
 
-@app.get('/pets', response_model=PetListWithCount)
+@app.get('/pets', tags=['Pets'], response_model=PetListWithCount)
 def list_pets(
     limit: int = 20,
     db: Session = Depends(get_db)
@@ -59,7 +59,7 @@ def list_pets(
     return {'count': len(queryset), 'items': queryset}
 
 
-@app.delete('/pets', response_model=DeleteResponseModel)
+@app.delete('/pets', tags=['Pets'], response_model=DeleteResponseModel)
 def delete_pet(
     ids: DeletePetModel,
     db: Session = Depends(get_db)
