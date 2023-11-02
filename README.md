@@ -30,7 +30,7 @@ cd pets_api/
 Cоздать и активировать виртуальное окружение:
 
 ```
-python -m venv env
+python -m venv venv
 ```
 
 ```
