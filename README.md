@@ -109,6 +109,7 @@ pets/
 ```
 pets/
 ```
+Request body:
 ```
 {
   "name": "Шарик",
@@ -131,6 +132,7 @@ pets/
 ```
 pets/
 ```
+Request body:
 ```
 {
   "ids": [
