@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import Enum
-from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -29,11 +28,11 @@ class PetList(PetBaseModel):
 
 class PetListWithCount(BaseModel):
     count: int
-    items: List[PetList]
+    items: list[PetList]
 
 
 class DeletePetModel(BaseModel):
-    ids: List[int] = [1, 2, 3]
+    ids: list[int] = [1, 2, 3]
 
 
 class ErrorsModel(BaseModel):
@@ -43,4 +42,4 @@ class ErrorsModel(BaseModel):
 
 class DeleteResponseModel(BaseModel):
     deleted: int
-    errors: List[ErrorsModel]
+    errors: list[ErrorsModel]
